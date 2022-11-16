@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../bloc/todo_bloc.dart';
 import '../model/todo_model.dart';
 
 class NewTodoPage extends StatelessWidget {
-  const NewTodoPage({Key? key}) : super(key: key);
+  NewTodoPage({Key? key}) : super(key: key);
+  TextEditingController titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,21 @@ class NewTodoPage extends StatelessWidget {
             return Column(
               children: [
                 TextField(
-                    controller: bloc.titleController,
+                    controller: titleController,
                     decoration: const InputDecoration(
                       hintText: "Title",
                     )),
                 TextButton(
-                    onPressed: () => onAdd(context), child: const Text('Save'))
+                    onPressed: () {
+                      var todo = Todo(
+                        favarite: false,
+                        title: titleController.text,
+                      );
+                      print(todo.title.toString());
+                      bloc.add(AddTodo(todo: todo));
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Save'))
               ],
             );
           },
@@ -39,14 +50,4 @@ class NewTodoPage extends StatelessWidget {
       ),
     );
   }
-}
-
-onAdd(BuildContext context) {
-  final bloc = context.read<TodoBloc>();
-  var todo = Todo(
-    favarite: false,
-    title: bloc.titleController.text,
-  );
-  bloc.add(AddTodo(todo: todo));
-  Navigator.pop(context);
 }

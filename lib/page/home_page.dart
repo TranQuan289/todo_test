@@ -23,14 +23,16 @@ class _HomePageState extends State<HomePage> {
         }
         if (state is ToDoLoaded) {
           return Scaffold(
+            appBar: AppBar(
+              title: const Text('Home'),
+              centerTitle: true,
+            ),
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(bottom: 50.0),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NewTodoPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => NewTodoPage()));
                 },
                 child: const Icon(Icons.add),
               ),
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.favorite),
                 onPressed: () {
                   setState(() {
-                    todo.favarite != todo.favarite;
+                    todo.favarite = !todo.favarite;
                   });
                 },
               )
@@ -68,14 +70,17 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.favorite_border),
                 onPressed: () {
                   setState(() {
-                    todo.favarite != todo.favarite;
+                    todo.favarite = !todo.favarite;
                   });
                 }),
         const SizedBox(
           width: 40,
           height: 40,
         ),
-        Text(todo.title)
+        Text(
+          todo.title,
+          style: TextStyle(color: Colors.black),
+        )
       ],
     );
   }

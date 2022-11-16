@@ -11,7 +11,7 @@ class TodoLoading extends TodoState {}
 
 class ToDoLoaded extends TodoState {
   final List<Todo> todos;
-  const ToDoLoaded({required this.todos});
+  const ToDoLoaded({this.todos = const <Todo>[]});
 
   @override
   List<Object> get props => [todos];

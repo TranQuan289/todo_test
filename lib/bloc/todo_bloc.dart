@@ -15,7 +15,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddTodo>(_onAddTodo);
     on<LoadFavoriteTodos>(_onLoadFavoriteTodos);
   }
-  TextEditingController titleController = TextEditingController();
 
   _onLoadTodos(LoadTodos event, Emitter<TodoState> emit) {
     emit(ToDoLoaded(todos: event.todos));
@@ -28,8 +27,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  FutureOr<void> _onLoadFavoriteTodos(
-      LoadFavoriteTodos event, Emitter<TodoState> emit) {
-    emit(ToDoLoaded(todos: event.todos));
+  _onLoadFavoriteTodos(LoadFavoriteTodos event, Emitter<TodoState> emit) {
+    final state = this.state;
+    if (state is ToDoLoaded) {
+      List<Todo> todo =
+          event.todos.where((element) => element.favarite).toList();
+      emit(ToDoLoaded(todos: todo));
+    }
   }
 }
