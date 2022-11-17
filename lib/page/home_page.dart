@@ -15,40 +15,39 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TodoBloc()..add(LoadTodos(todos: listTodo)),
-      child: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
-        if (state is TodoLoading) {
-          return const CircularProgressIndicator();
-        }
-        if (state is ToDoLoaded) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Home'),
-              centerTitle: true,
-            ),
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.only(bottom: 50.0),
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NewTodoPage()));
-                },
-                child: const Icon(Icons.add),
-              ),
-            ),
-            body: ListView.builder(
-              itemCount: state.todos.length,
-              itemBuilder: (context, index) {
-                return _card(state.todos[index]);
+    return BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
+      if (state is TodoLoading) {
+        return const CircularProgressIndicator();
+      }
+      if (state is ToDoLoaded) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Home'),
+            centerTitle: true,
+          ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewTodoPage()));
               },
+              child: const Icon(Icons.add),
             ),
-          );
-        } else {
-          return const Text("Error");
-        }
-      }),
-    );
+          ),
+          body: ListView.builder(
+            itemCount: state.todos.length,
+            itemBuilder: (context, index) {
+              return _card(state.todos[index]);
+            },
+          ),
+        );
+      } else {
+        return const Text("Error");
+      }
+    });
   }
 
   Row _card(Todo todo) {
@@ -79,7 +78,6 @@ class _HomePageState extends State<HomePage> {
         ),
         Text(
           todo.title,
-          style: TextStyle(color: Colors.black),
         )
       ],
     );

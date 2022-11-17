@@ -4,7 +4,7 @@ class Todo {
   Todo({required this.favarite, required this.title});
   bool favarite;
   final String title;
-  final String id = Uuid().v4();
+  final String id = const Uuid().v4();
 }
 
 List<Todo> listTodo = [

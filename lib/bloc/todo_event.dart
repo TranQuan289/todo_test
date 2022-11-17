@@ -14,13 +14,6 @@ class LoadTodos extends TodoEvent {
   List<Object> get props => [todos];
 }
 
-class LoadFavoriteTodos extends TodoEvent {
-  final List<Todo> todos;
-  const LoadFavoriteTodos({required this.todos});
-  @override
-  List<Object> get props => [todos];
-}
-
 class AddTodo extends TodoEvent {
   final Todo todo;
   const AddTodo({required this.todo});

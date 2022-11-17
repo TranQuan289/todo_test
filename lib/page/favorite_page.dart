@@ -14,30 +14,31 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TodoBloc()..add(LoadFavoriteTodos(todos: listTodo)),
-      child: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
-        if (state is TodoLoading) {
-          return const CircularProgressIndicator();
-        }
-        if (state is ToDoLoaded) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Favorite'),
-              centerTitle: true,
-            ),
-            body: ListView.builder(
-              itemCount: state.todos.length,
-              itemBuilder: (context, index) {
+    return BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
+      if (state is TodoLoading) {
+        return const CircularProgressIndicator();
+      }
+      if (state is ToDoLoaded) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Favorite'),
+            centerTitle: true,
+          ),
+          body: ListView.builder(
+            itemCount: state.todos.length,
+            itemBuilder: (context, index) {
+              if (state.todos[index].favarite) {
                 return _card(state.todos[index]);
-              },
-            ),
-          );
-        } else {
-          return const Text("Error");
-        }
-      }),
-    );
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        );
+      } else {
+        return const Text("Error");
+      }
+    });
   }
 
   Row _card(Todo todo) {

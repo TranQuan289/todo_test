@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_test/home_navigator_page.dart';
 import 'package:todo_test/page/favorite_page.dart';
-import 'package:todo_test/page/home_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class Home extends StatefulWidget {
 
 final List<Map<String, dynamic>> _pageDetails = [
   {
-    'pageName': HomeNavigatorPage(),
+    'pageName': const HomeNavigatorPage(),
   },
   {'pageName': const FavoritePage()},
 ];

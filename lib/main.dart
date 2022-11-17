@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_test/bloc/todo_bloc.dart';
 import 'package:todo_test/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_test/model/todo_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => TodoBloc()..add(LoadTodos(todos: listTodo)),
+          ),
+        ],
+        child: const MaterialApp(
+          home: Home(),
+        ));
   }
 }
