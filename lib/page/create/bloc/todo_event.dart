@@ -20,3 +20,8 @@ class AddTodo extends TodoEvent {
   @override
   List<Object> get props => [todo];
 }
+
+class ChangeFavorive extends TodoEvent {
+  final bool isChange;
+  const ChangeFavorive({required this.isChange});
+}

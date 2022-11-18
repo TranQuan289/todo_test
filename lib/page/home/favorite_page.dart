@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_test/bloc/todo_bloc.dart';
 
-import '../model/todo_model.dart';
+import '../../model/todo_model.dart';
+import '../create/bloc/todo_bloc.dart';
 
-class FavoritePage extends StatefulWidget {
+class FavoritePage extends StatelessWidget {
   const FavoritePage({Key? key}) : super(key: key);
 
-  @override
-  State<FavoritePage> createState() => _FavoritePageState();
-}
-
-class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
@@ -28,7 +23,7 @@ class _FavoritePageState extends State<FavoritePage> {
             itemCount: state.todos.length,
             itemBuilder: (context, index) {
               if (state.todos[index].favarite) {
-                return _card(state.todos[index]);
+                return _card(context, state.todos[index]);
               } else {
                 return const SizedBox();
               }
@@ -36,12 +31,12 @@ class _FavoritePageState extends State<FavoritePage> {
           ),
         );
       } else {
-        return const Text("Error");
+        return Container();
       }
     });
   }
 
-  Row _card(Todo todo) {
+  Row _card(BuildContext context, Todo todo) {
     return Row(
       children: [
         const SizedBox(
@@ -50,9 +45,10 @@ class _FavoritePageState extends State<FavoritePage> {
         IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () {
-              setState(() {
-                todo.favarite = !todo.favarite;
-              });
+              todo.favarite = !todo.favarite;
+              context
+                  .read<TodoBloc>()
+                  .add(ChangeFavorive(isChange: todo.favarite));
             }),
         const SizedBox(
           width: 40,

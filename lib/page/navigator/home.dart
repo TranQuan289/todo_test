@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_test/home_navigator_page.dart';
-import 'package:todo_test/page/favorite_page.dart';
+import 'package:todo_test/page/navigator/home_navigator_page.dart';
+import 'package:todo_test/page/home/favorite_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

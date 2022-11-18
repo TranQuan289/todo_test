@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_test/bloc/todo_bloc.dart';
-import 'package:todo_test/page/new_todo_page.dart';
 
-import '../model/todo_model.dart';
+import 'package:todo_test/page/create/new_todo_page.dart';
+import '../../model/todo_model.dart';
+import '../create/bloc/todo_bloc.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
@@ -40,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           body: ListView.builder(
             itemCount: state.todos.length,
             itemBuilder: (context, index) {
-              return _card(state.todos[index]);
+              return _card(context, state.todos[index]);
             },
           ),
         );
@@ -50,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Row _card(Todo todo) {
+  Row _card(BuildContext context, Todo todo) {
     return Row(
       children: [
         const SizedBox(
@@ -60,17 +54,19 @@ class _HomePageState extends State<HomePage> {
             ? IconButton(
                 icon: const Icon(Icons.favorite),
                 onPressed: () {
-                  setState(() {
-                    todo.favarite = !todo.favarite;
-                  });
+                  todo.favarite = !todo.favarite;
+                  context
+                      .read<TodoBloc>()
+                      .add(ChangeFavorive(isChange: todo.favarite));
                 },
               )
             : IconButton(
                 icon: const Icon(Icons.favorite_border),
                 onPressed: () {
-                  setState(() {
-                    todo.favarite = !todo.favarite;
-                  });
+                  todo.favarite = !todo.favarite;
+                  context
+                      .read<TodoBloc>()
+                      .add(ChangeFavorive(isChange: todo.favarite));
                 }),
         const SizedBox(
           width: 40,

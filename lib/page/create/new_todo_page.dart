@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/todo_bloc.dart';
-import '../model/todo_model.dart';
+import 'package:todo_test/page/create/bloc/todo_bloc.dart';
+import '../../model/todo_model.dart';
 
 class NewTodoPage extends StatelessWidget {
   const NewTodoPage({Key? key}) : super(key: key);

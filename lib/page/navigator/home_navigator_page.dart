@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_test/page/new_todo_page.dart';
+import 'package:todo_test/page/create/new_todo_page.dart';
 
-import 'page/home_page.dart';
+import '../home/home_page.dart';
 
 class HomeNavigatorPage extends StatelessWidget {
   const HomeNavigatorPage({super.key});
